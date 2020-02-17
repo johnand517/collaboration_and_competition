@@ -1,0 +1,13 @@
+buff_size = int(1.0e6)  # The maximum items stored in our buffer
+batch_size = 256  # The batch to sample from our buffer in a learning episode
+iter_memory_pull = 1  # The number of state/action updates before learning
+iter_target_update = 1  # learning iterations before syncing target q network weights to local q network weights
+iter_learn_steps = 1  # The number of learning steps to take after a series of memory pull steps
+Gamma = 0.99  # discount factor
+critic_learning_rate = 1.0e-3  # The learning rate for our critic optimizer
+actor_learning_rate = 1.0e-3  # The learning rate for our actor optimizer
+tau = 1.0e-3  # Soft update parameter for target q network weight updates
+noise_sigma = 0.07  # The sd for OU noise
+noise_mu = 0.0  # The average for OU noise
+noise_theta = 0.15  # The base amplitude for OU noise
+weight_decay = 0.0001  # L2 Penalty for critic optimizer
