@@ -49,7 +49,7 @@ Hyperparameters used for this approach are provided in the hyperparameters.py fi
 
 ## Current results
 
-Through applying the above learning agent, we are able to achieve for a single agent a target score (averaged over the prior 100 episodes) of 0.5 after 122 episodes.  The results of our scores through successive training episodes are as shown:
+Through applying the above learning agent, we are able to achieve for a single agent a target score (averaged over the prior 100 episodes) of 0.5 after 741 episodes.  The results of our scores through successive training episodes are as shown:
 
 ![Epoch Scores](/common/images/score_by_episode.png "Epoch Scores")
 
