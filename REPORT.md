@@ -28,17 +28,15 @@ reward to the given agent's critic network.
 For each critic network, we then compute a target Q value (using the target network), and an estimated Q value (using the local network) 
 and use these two values to calculate a loss for our critic network.  This loss is then used to update the local critic network.
 
-We then train our actor network by obtaining next best actions for each agent, and calculate a loss function for our actor network 
-by feeding these actions into our local critic network for a given agent.  This learning is done iteratively over all agents 
-for a given learning cycle. 
-
-and an agent's state/next state to we used the experience rewards and estimated next actions to get updated Q values from our target critic network.  
-We then update our local critic network using these new Q values and the expected Q values from the local critic network.
 As part of updating our critic network, we using gradient clipping to reduce the magnitude of the norm of the vector to be less than or equal than 1, to prevent a gradient from getting too large
 and causing unexpected divergence.
 
+We then train our actor network by obtaining next best actions for each agent (local actor network), and calculate a loss function for our actor network 
+by feeding these actions into our local critic network for a given agent.  This learning is done for every agent's critic network
+update iteration using the given agent's critic network and current state. 
+
 Our critic networks for each agent have a soft update with each iteration.  Our actor network has a soft update for 
-each agent's learning iteration (so it gets n soft update every learning cycle, where n is the total number of agents).
+every agent's critic network update (so n soft updates every learning cycle, where n is the total number of agents).
 
 We also include Double DQN as part of our learning process, which stabilizes our learning by calculating our estimated best action from the next state using the local q network, 
 and using those actions to calculate estimated next state reward from our target q network see [ref: Double DQN Paper](https://arxiv.org/abs/1509.06461).
@@ -51,10 +49,13 @@ Hyperparameters used for this approach are provided in the hyperparameters.py fi
 
 ## Current results
 
-Through applying the above learning agent, we are able to achieve for a single agent a target score (averaged over the prior 100 episodes) of 30 after 122 episodes.  The results of our scores through successive training episodes are as shown:
+Through applying the above learning agent, we are able to achieve for a single agent a target score (averaged over the prior 100 episodes) of 0.5 after 122 episodes.  The results of our scores through successive training episodes are as shown:
 
 ![Epoch Scores](/common/images/score_by_episode.png "Epoch Scores")
 
 ## Areas for improvement
 
 - More exhaustive hyperparameter tuning
+- Testing against a decoupled actor network (one for each agent)
+- Exploration of MADDPG techniques such as [MAPDDPG-GCPN](https://arxiv.org/pdf/1810.09206.pdf)
+(extra actor network generates samples to store in replay buffer for critic usage)

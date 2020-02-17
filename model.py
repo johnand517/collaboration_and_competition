@@ -74,7 +74,7 @@ class Critic(nn.Module):
         self.bn = nn.BatchNorm1d(n1)
         self.fc1_drop = nn.Dropout(p=0.0)
         # Second layer with dropout
-        self.fc2 = nn.Linear(n1+action_size*num_agents, n2)
+        self.fc2 = nn.Linear(n1+action_size*num_agents, n2)  # Critic network accepts actions from *all* agents
         self.fc2_drop = nn.Dropout(p=0.0)
         # Third layer with dropout
         self.fc3 = nn.Linear(n2, n3)

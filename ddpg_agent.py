@@ -111,6 +111,7 @@ class Agent():
         rewards = rewards.reshape(self.memory.batch_size, self.num_agents, 1)
         dones = dones.reshape(self.memory.batch_size, self.num_agents, 1)
 
+        # Iterate over our agents and update their respective networks
         critic_loss = []
         for i in range(self.num_agents):
             # ---------------------------- update critic ---------------------------- #
@@ -136,10 +137,10 @@ class Agent():
             actor_loss.backward(retain_graph=True)
             self.actor_optimizer.step()
 
-            # ----------------------- update target critic networks ----------------------- #
+            # ----------------------- soft update target critic networks ----------------------- #
             self.soft_update(self.critic_local[i], self.critic_target[i], hp.tau)
 
-            # ------------------ update target actor network ----------------------- #
+            # ----------------------- soft update target actor network ------------------------- #
             self.soft_update(self.actor_local, self.actor_target, hp.tau)
 
     def soft_update(self, local_model, target_model, tau):
